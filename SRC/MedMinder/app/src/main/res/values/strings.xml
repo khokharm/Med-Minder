@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Med Minder</string>
+    <string-array name="Medicine_Type">
+        <item></item>
+        <item>Pills</item>
+        <item>Drops</item>
+        <item>Liquid</item>
+        <item>Cream</item>
+        <item>Injection</item>
+
+    </string-array>
+</resources>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="317dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Enter the following Information:"
+                android:textSize="28dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medicine Name:"
+                    android:textSize="16dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignBaseline="@+id/create_medicineName"
+                    android:layout_alignBottom="@+id/create_medicineName"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/textView2" />
+
+
+                <EditText
+                    android:id="@+id/create_medicineName"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/textView2" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/create_MedicineType_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:text="Medicine Type:"
+                    android:textSize="16dp" />
+
+                <Spinner
+                    android:id="@+id/create_MedicineType_Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_toEndOf="@+id/create_MedicineType_Title" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+
+                <TextView
+                    android:id="@+id/create_Drug_Description_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Medicine Description:"
+                    android:textSize="16dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="11dp" />
+
+
+
+
+
+            </RelativeLayout>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+            <EditText
+                android:id="@+id/create_MedicineDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                />
+
+            </RelativeLayout>
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp" />
+
+
+            <Button
+                android:id="@+id/createButton"
+                android:layout_width="200dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timePicker"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="Create" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

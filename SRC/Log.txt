@@ -1,0 +1,5 @@
+Log as of 2017-11-20
+
+2017-11-20 
+-Added files to git 
+-working on understanding intents 
