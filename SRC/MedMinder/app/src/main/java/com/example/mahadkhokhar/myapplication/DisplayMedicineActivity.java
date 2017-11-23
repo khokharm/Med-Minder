@@ -57,12 +57,32 @@ public class DisplayMedicineActivity extends Activity {
             if (extras != null) {
                 //Creating new medicine and adding the list of medicines
                 Medicine med = ((Medicine) extras.getSerializable("Medicine"));
+
                 medList.add (med);
 
                 //Need to change this to make efficient
                 stringArray.add (med.getName());
 
                 //Toast.makeText(this,x,Toast.LENGTH_LONG).show();
+
+                //-----Creating the broadcast for the notification------------------------------------------
+
+                //Creating the calendar for
+                Calendar calendar = Calendar.getInstance();
+                //Toast.makeText(this, Integer.toString(med.getHour()), Toast.LENGTH_SHORT).show();
+                //calendar.set(Calendar.HOUR_OF_DAY, med.getHour());
+                //Toast.makeText(this, Integer.toString(med.getMinute()), Toast.LENGTH_SHORT).show();
+                //calendar.set(Calendar.MINUTE, med.getMinute());
+
+                //Intent
+                Intent alarmIntent = new Intent(DisplayMedicineActivity.this, Receiver.class);
+                alarmIntent.putExtra("Medicine", med);
+                alarmIntent.putExtra("Tag", "please work");
+                pIntent = PendingIntent.getBroadcast(DisplayMedicineActivity.this,100,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+                //-------------------------------------------------------------------------------------------------------
+
             }
         }
         //Statement for the second activity
@@ -125,10 +145,8 @@ public class DisplayMedicineActivity extends Activity {
                 //arrayAdapter.notifyDataSetChanged();
 
                 Toast.makeText(DisplayMedicineActivity.this, "Helded", Toast.LENGTH_SHORT).show();
-                Intent test_intent = new Intent(DisplayMedicineActivity.this, Receiver.class);
-                final Calendar calendar = Calendar.getInstance();
-                pIntent = PendingIntent.getBroadcast(DisplayMedicineActivity.this,100,test_intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+                pIntent = PendingIntent.getActivity(DisplayMedicineActivity.this,100,new Intent (DisplayMedicineActivity.this, Receiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
+                Toast.makeText(getApplicationContext(), "Deleted",Toast.LENGTH_SHORT).show();
 
                 return false;
             }
@@ -136,17 +154,6 @@ public class DisplayMedicineActivity extends Activity {
 
         //--------------------------------------------------------------------------------------------------------------
         //Background noticification
-/*        Calendar calendar =  Calendar.getInstance();
-
-        calendar.set (Calendar.HOUR_OF_DAY, 1);
-        calendar.set(Calendar.MINUTE, 53);
-        calendar.set (Calendar.SECOND, 0);
-
-        Intent intent = new Intent(this,Receiver.class);
-        pIntent = PendingIntent.getBroadcast(this,100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pIntent);*/
 
     }
 

@@ -1,60 +1,105 @@
 package com.example.mahadkhokhar.myapplication;
 
-import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
+
+import Structures.Medicine;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by Mahad Khokhar on 2017-11-16.
  */
 
+
 public class Receiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
-
+        //Used to see if we are in the broadcast system
         Toast.makeText(context, "testing for broadcastReceiver", Toast.LENGTH_LONG).show();
 
+        //Medicine
+        Medicine med = null;
 
-        /*   NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        String action = intent.getAction();
 
-        //Taking this activity and redirecting it to another activity
-        Intent repeating_intent = new Intent(context, MainActivity.class);
-        repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, repeating_intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setContentIntent (pendingIntent)
-                .setContentTitle ("Notification")
-                .setContentText ("dafd")
-                .setAutoCancel(true);
+        ///Toast.makeText(context, ("Receiver. " + "Broadcast received: " + action), Toast.LENGTH_SHORT).show();
 
 
-        notificationManager.notify(100, builder.build ());*/
+/*        Bundle extras = intent.getExtras();
+        if (extras != null){
+
+            if (extras.getString("Tag") != null)
+                Toast.makeText(context, "working", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Nothingness", Toast.LENGTH_SHORT).show();
+*//*            med = ((Medicine) extras.getSerializable("Medicine"));
+            try {
+                if (med != null)
+                    Toast.makeText(context, med.getName(), Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(context, "Nothingness", Toast.LENGTH_SHORT).show();*//*
+           *//* }
+            catch (Exception e){
+
+            }*/
 
 
-/*        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent intent1 = new Intent(context,MainActivity.class);
-        intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //if we want ring on notifcation then uncomment below line//
-//        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,100,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context).
-                //setSmallIcon(R.drawable.applogo).
-                setContentIntent(pendingIntent).
-                setContentText("this is my notification").
-                setContentTitle("my notificaton").
-//                setSound(alarmSound).
-        setAutoCancel(true);
-        notificationManager.notify(100,builder.build());*/
+                        //
+
+        //}
 
 
+
+
+
+
+        //The Notification Part
+
+
+        //Creating the Manager
+        NotificationManager mNotificationManager =(NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+        //Checking if it is oreo because the way you implement notification in oreo is differnt
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            final String ID = "MedicineID";
+
+            NotificationChannel mChannel = new NotificationChannel("MedicineID", "Medicine", NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription("This channel will notify the user to take thier medicine");
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableLights(true);
+
+            mChannel.enableVibration(true);
+            mNotificationManager.createNotificationChannel(mChannel);
+
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.androidicon)
+                            .setContentTitle("My notification")
+                            .setContentText("Hello World!")
+                            .setChannel(ID);
+
+            mNotificationManager.notify(100, mBuilder.build());
+        }else{
+            //NotificationBuilder
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+            mBuilder.setSmallIcon(R.drawable.androidicon);
+            mBuilder.setContentTitle("My notification");
+            mBuilder.setContentText("Hello World!");
+            // Builds the notification and issues it.
+            mNotificationManager.notify(100, mBuilder.build());
+        }
 
     }
 }
