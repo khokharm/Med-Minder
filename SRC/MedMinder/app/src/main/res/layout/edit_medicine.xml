@@ -23,9 +23,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
-                android:text="Enter the following Information:"
+                android:text="Edit the following Information:"
                 android:textSize="28dp"
-                 />
+                />
 
 
             <RelativeLayout
@@ -104,19 +104,19 @@
 
             </RelativeLayout>
 
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="40dp">
-
-            <EditText
-                android:id="@+id/create_MedicineDescription"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                />
+                android:layout_height="40dp">
+
+                <EditText
+                    android:id="@+id/create_MedicineDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    />
             </RelativeLayout>
 
             <TimePicker
@@ -137,6 +137,8 @@
                 android:text="Create" />
         </LinearLayout>
     </ScrollView>
+
+
 
 
 </RelativeLayout>

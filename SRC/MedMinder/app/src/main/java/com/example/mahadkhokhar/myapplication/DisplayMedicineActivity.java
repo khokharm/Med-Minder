@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import Structures.Medicine;
 import Structures.MedicineList;
@@ -33,6 +34,11 @@ public class DisplayMedicineActivity extends Activity {
     private ArrayAdapter arrayAdapter;
     private Button newMedicineButton;
     private AlarmManager alarmManager;
+
+    int counter = 1;
+
+    DatabaseHelper db = new DatabaseHelper(this);
+
 
     //Delete this afterwards, used to check for funcationality
 
@@ -55,6 +61,7 @@ public class DisplayMedicineActivity extends Activity {
             Bundle extras = data.getExtras();
 
             if (extras != null) {
+
                 //Creating new medicine and adding the list of medicines
                 Medicine med = ((Medicine) extras.getSerializable("Medicine"));
 
@@ -65,22 +72,41 @@ public class DisplayMedicineActivity extends Activity {
 
                 //Toast.makeText(this,x,Toast.LENGTH_LONG).show();
 
+                db.addNewMedicine(med);
+
+                List<Medicine> meddie = new ArrayList<Medicine>();
+
+                if (meddie == null)
+                    Toast.makeText(this, "nothingness", Toast.LENGTH_SHORT).show();
+
+                meddie = db.getAllMedicine();
+
+                //Toast.makeText(this, meddie.get(0).getName(), Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
                 //-----Creating the broadcast for the notification------------------------------------------
 
-                //Creating the calendar for
+                /*//Creating the calendar for
                 Calendar calendar = Calendar.getInstance();
                 //Toast.makeText(this, Integer.toString(med.getHour()), Toast.LENGTH_SHORT).show();
-                //calendar.set(Calendar.HOUR_OF_DAY, med.getHour());
+                calendar.set(Calendar.HOUR_OF_DAY, med.getHour());
                 //Toast.makeText(this, Integer.toString(med.getMinute()), Toast.LENGTH_SHORT).show();
-                //calendar.set(Calendar.MINUTE, med.getMinute());
+                calendar.set(Calendar.MINUTE, med.getMinute());
 
                 //Intent
-                Intent alarmIntent = new Intent(DisplayMedicineActivity.this, Receiver.class);
-                alarmIntent.putExtra("Medicine", med);
-                alarmIntent.putExtra("Tag", "please work");
-                pIntent = PendingIntent.getBroadcast(DisplayMedicineActivity.this,100,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+                Intent alarmIntent = new Intent(getApplicationContext(), Receiver.class);
 
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+                alarmIntent.putExtra("MedicineName", med.getName());
+                alarmIntent.putExtra("MedicineDescription", med.getDescription());
+                alarmIntent.putExtra("Counter", Integer.toString(counter));
+
+                pIntent = PendingIntent.getBroadcast(getApplicationContext(),counter,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+ 2000, pIntent);*/
                 //-------------------------------------------------------------------------------------------------------
 
             }
@@ -115,12 +141,34 @@ public class DisplayMedicineActivity extends Activity {
             }
         });
 
+
+
+
+
+
+
+
+
+
+
+
         //Code for the listview----------------------------------------------------------------
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
 
         if (listView != null){
             listView.setAdapter(arrayAdapter);
         }
+
+
+
+
+
+
+
+
+
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,26 +182,40 @@ public class DisplayMedicineActivity extends Activity {
             }
         });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         //------------------------------------------------------------------------------------------
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
 
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(getApplicationContext(), "Discount should be less than 100",Toast.LENGTH_SHORT).show();
                 //medList.remove(i);
                 //arrayAdapter.notifyDataSetChanged();
 
-                Toast.makeText(DisplayMedicineActivity.this, "Helded", Toast.LENGTH_SHORT).show();
-                pIntent = PendingIntent.getActivity(DisplayMedicineActivity.this,100,new Intent (DisplayMedicineActivity.this, Receiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
-                Toast.makeText(getApplicationContext(), "Deleted",Toast.LENGTH_SHORT).show();
 
+                //Use to reference the pending intent
+                Intent alarmIntent = new Intent(getApplicationContext(), Receiver.class);pIntent = PendingIntent.getBroadcast(getApplicationContext(),counter++,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+                pIntent.cancel(); //Cancel the pending intent here
+
+                Toast.makeText(getApplicationContext(), "Deleted",Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
         //--------------------------------------------------------------------------------------------------------------
-        //Background noticification
+
 
     }
 

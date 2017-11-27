@@ -28,7 +28,7 @@
 
         <receiver android:name=".Receiver"
             android:enabled="true"
-            android:process=":remote"/>
+            android:exported="true"/>
 
 
         

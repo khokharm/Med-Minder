@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import java.util.Calendar;
 
+import Structures.Medicine;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Variables for items from XML file
     private Button drugButton;
-    private Button scheduleButton;
+    private Button Main_Button_2;
 
-    private DatabaseHelper database;
+    DatabaseHelper db = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Getting id to the buttons
         drugButton = (Button) findViewById(R.id.drugButton);
+        Main_Button_2 = (Button) findViewById(R.id.Main_Button_2);
 
         //scheduleButton = (Button) findViewById(R.id.scheduleButton);
 
@@ -43,6 +46,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         );
+
+        Main_Button_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String name = "x5";
+                Medicine medicine = new Medicine (name,"Type", "adfadf", 12,12,1);
+
+                db.addNewMedicine(medicine);
+                db.updateMedicineInfo("x5","Type", "adfadf", 12,11,1);
+
+
+
+            }
+        });
+
+
+
+
 
     }
 }

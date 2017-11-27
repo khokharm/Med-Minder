@@ -25,44 +25,17 @@ public class Receiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //Used to see if we are in the broadcast system
-        Toast.makeText(context, "testing for broadcastReceiver", Toast.LENGTH_LONG).show();
-
         //Medicine
         Medicine med = null;
 
-        String action = intent.getAction();
-
-        ///Toast.makeText(context, ("Receiver. " + "Broadcast received: " + action), Toast.LENGTH_SHORT).show();
-
-
-/*        Bundle extras = intent.getExtras();
-        if (extras != null){
-
-            if (extras.getString("Tag") != null)
-                Toast.makeText(context, "working", Toast.LENGTH_SHORT).show();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            if (extras.getString("MedicineName") != null|| extras.getString("MedicineDescription") != null)
+                Toast.makeText(context, (extras.getString("MedicineName")+ extras.getString("MedicineDescription")), Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(context, "Nothingness", Toast.LENGTH_SHORT).show();
-*//*            med = ((Medicine) extras.getSerializable("Medicine"));
-            try {
-                if (med != null)
-                    Toast.makeText(context, med.getName(), Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(context, "Nothingness", Toast.LENGTH_SHORT).show();*//*
-           *//* }
-            catch (Exception e){
 
-            }*/
-
-
-                        //
-
-        //}
-
-
-
-
-
+        }
 
         //The Notification Part
 
@@ -92,13 +65,15 @@ public class Receiver extends BroadcastReceiver {
 
             mNotificationManager.notify(100, mBuilder.build());
         }else{
+
             //NotificationBuilder
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
             mBuilder.setSmallIcon(R.drawable.androidicon);
-            mBuilder.setContentTitle("My notification");
-            mBuilder.setContentText("Hello World!");
+            mBuilder.setContentTitle(extras.getString("MedicineName") + " Medicine Alert");
+            mBuilder.setContentText(extras.getString("MedicineDescription"));
             // Builds the notification and issues it.
-            mNotificationManager.notify(100, mBuilder.build());
+            mNotificationManager.notify(Integer.parseInt(extras.getString("Counter")), mBuilder.build());
+
         }
 
     }

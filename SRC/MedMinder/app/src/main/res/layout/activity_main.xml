@@ -21,16 +21,16 @@
             android:layout_marginTop="57dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
-        <!--
+
         <Button
-            android:id="@+id/scheduleButton"
+            android:id="@+id/Main_Button_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Schedule"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="181dp" />
+            android:text="Add Medication"
+            android:layout_below="@+id/drugButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp" />
 
-            -->
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
