@@ -3,7 +3,8 @@
     package="com.example.mahadkhokhar.myapplication">
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>﻿
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,11 @@
         <activity android:name=".CreateMedicineActivity"
             android:label="@string/app_name"/>
         <activity android:name=".MedicineDescriptionActivity"
+            android:label="@string/app_name"
+            />
+        <activity android:name=".EditMedicineActivity"
             android:label="@string/app_name"/>
+
 
         <receiver android:name=".Receiver"
             android:enabled="true"

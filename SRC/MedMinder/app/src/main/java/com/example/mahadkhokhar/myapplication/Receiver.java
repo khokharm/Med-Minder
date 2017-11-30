@@ -25,21 +25,17 @@ public class Receiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //Medicine
-        Medicine med = null;
-
         Bundle extras = intent.getExtras();
-        if (extras != null) {
+        //Testing ----------------------------------------------------------------------------------------
+/*        if (extras != null) {
             if (extras.getString("MedicineName") != null|| extras.getString("MedicineDescription") != null)
                 Toast.makeText(context, (extras.getString("MedicineName")+ extras.getString("MedicineDescription")), Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(context, "Nothingness", Toast.LENGTH_SHORT).show();
 
-        }
+        }*/
 
-        //The Notification Part
-
-
+        //The Notification Part----------------------------------------------------------------------
         //Creating the Manager
         NotificationManager mNotificationManager =(NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
@@ -63,6 +59,7 @@ public class Receiver extends BroadcastReceiver {
                             .setContentText("Hello World!")
                             .setChannel(ID);
 
+
             mNotificationManager.notify(100, mBuilder.build());
         }else{
 
@@ -71,6 +68,8 @@ public class Receiver extends BroadcastReceiver {
             mBuilder.setSmallIcon(R.drawable.androidicon);
             mBuilder.setContentTitle(extras.getString("MedicineName") + " Medicine Alert");
             mBuilder.setContentText(extras.getString("MedicineDescription"));
+            mBuilder.setPriority(NotificationManager.IMPORTANCE_HIGH);
+            mBuilder.setColor(Color.RED);
             // Builds the notification and issues it.
             mNotificationManager.notify(Integer.parseInt(extras.getString("Counter")), mBuilder.build());
 

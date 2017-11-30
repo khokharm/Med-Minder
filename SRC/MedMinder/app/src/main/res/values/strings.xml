@@ -7,6 +7,17 @@
         <item>Liquid</item>
         <item>Cream</item>
         <item>Injection</item>
-
     </string-array>
+
+    <string name="counterFile">CounterFile</string>
+    <string name="medicineFile">MedicationFile</string>
+
+    <string name="medicineTitle"><u>MEDICINE</u></string>
+
+
+    <string name="t1"><b>"Medicine Name: "</b></string>
+    <string name="t2"><b>"Medicine Type: "</b></string>
+    <string name="t3"><b>"Medicine Time: "</b></string>
+    <string name="t4"><b>Medicine Description</b></string>
+
 </resources>

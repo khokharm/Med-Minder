@@ -16,13 +16,15 @@
             >
 
             <TextView
-                android:id="@+id/textView"
+
+                android:id="@+id/Edit_pageTitle"
                 android:layout_width="317dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
                 android:text="Edit the following Information:"
                 android:textSize="28dp"
                 />
@@ -38,14 +40,14 @@
                     android:text="Medicine Name:"
                     android:textSize="16dp"
                     android:layout_marginStart="10dp"
-                    android:layout_alignBaseline="@+id/create_medicineName"
-                    android:layout_alignBottom="@+id/create_medicineName"
+                    android:layout_alignBaseline="@+id/medicineName"
+                    android:layout_alignBottom="@+id/medicineName"
                     android:layout_alignParentStart="true"
                     android:id="@+id/textView2" />
 
 
                 <EditText
-                    android:id="@+id/create_medicineName"
+                    android:id="@+id/medicineName"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:ems="10"
@@ -73,7 +75,7 @@
                     android:textSize="16dp" />
 
                 <Spinner
-                    android:id="@+id/create_MedicineType_Spinner"
+                    android:id="@+id/MedicineType_Spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -109,32 +111,31 @@
                 android:layout_height="40dp">
 
                 <EditText
-                    android:id="@+id/create_MedicineDescription"
+                    android:id="@+id/MedicineDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    />
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
             </RelativeLayout>
 
             <TimePicker
-                android:id="@+id/timePicker"
+                android:id="@+id/edit_timePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp" />
 
             <Button
-                android:id="@+id/createButton"
+                android:id="@+id/Button"
                 android:layout_width="200dp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/timePicker"
+                android:layout_below="@+id/edit_timePicker"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:text="Create" />
+                android:text="Edit" />
         </LinearLayout>
     </ScrollView>
 

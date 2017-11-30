@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.*;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,9 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
+import Structures.IOHelper;
 import Structures.Medicine;
 import Structures.MedicineList;
 
@@ -25,174 +27,70 @@ import Structures.MedicineList;
 
 public class DisplayMedicineActivity extends Activity {
 
-    final int CURRENT_ACTIVITY_NUMBER = 1001;
-    final int REFERENCE_ACTIVITY_NUMBER_1 = 1002; //CreateMedicineActivity
-    final int REFERENCE_ACTIVITY_NUMBER_2 = 1003; //MedicineDescriptionActivity
-
     //Variables
     private ListView listView;
     private ArrayAdapter arrayAdapter;
-    private Button newMedicineButton;
-    private AlarmManager alarmManager;
-
-    int counter = 1;
-
-    DatabaseHelper db = new DatabaseHelper(this);
-
-
-    //Delete this afterwards, used to check for funcationality
-
-    ArrayList<String> stringArray = new ArrayList<String>();
 
     //Declare the list for the medicine
-    private MedicineList medList = new MedicineList();
+    private MedicineList medList;
 
-    //Intents
-    PendingIntent pIntent;
+    //Used to track for return from activity
+    final int ACTIVITY_DELETED = 8008;
 
-
-    //This methods is used to get Data from the application
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REFERENCE_ACTIVITY_NUMBER_1){
+        if (resultCode == RESULT_OK && requestCode == ACTIVITY_DELETED) {
+            //Update the list
+            medList.updateList(getApplicationContext());
+            //Used for testing
+            IOHelper io = new IOHelper();
+            Log.d("result",  "return: "+  io.read(this,String.valueOf(R.string.medicineFile)));
+            //Toast.makeText(getApplicationContext(), "return", Toast.LENGTH_SHORT).show();
 
-            //Getting data from intents
-            Bundle extras = data.getExtras();
+            //Reseting the arrayAdapter
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medList.getMedicineNames());
 
-            if (extras != null) {
-
-                //Creating new medicine and adding the list of medicines
-                Medicine med = ((Medicine) extras.getSerializable("Medicine"));
-
-                medList.add (med);
-
-                //Need to change this to make efficient
-                stringArray.add (med.getName());
-
-                //Toast.makeText(this,x,Toast.LENGTH_LONG).show();
-
-                db.addNewMedicine(med);
-
-                List<Medicine> meddie = new ArrayList<Medicine>();
-
-                if (meddie == null)
-                    Toast.makeText(this, "nothingness", Toast.LENGTH_SHORT).show();
-
-                meddie = db.getAllMedicine();
-
-                //Toast.makeText(this, meddie.get(0).getName(), Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-                //-----Creating the broadcast for the notification------------------------------------------
-
-                /*//Creating the calendar for
-                Calendar calendar = Calendar.getInstance();
-                //Toast.makeText(this, Integer.toString(med.getHour()), Toast.LENGTH_SHORT).show();
-                calendar.set(Calendar.HOUR_OF_DAY, med.getHour());
-                //Toast.makeText(this, Integer.toString(med.getMinute()), Toast.LENGTH_SHORT).show();
-                calendar.set(Calendar.MINUTE, med.getMinute());
-
-                //Intent
-                Intent alarmIntent = new Intent(getApplicationContext(), Receiver.class);
-
-                alarmIntent.putExtra("MedicineName", med.getName());
-                alarmIntent.putExtra("MedicineDescription", med.getDescription());
-                alarmIntent.putExtra("Counter", Integer.toString(counter));
-
-                pIntent = PendingIntent.getBroadcast(getApplicationContext(),counter,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+ 2000, pIntent);*/
-                //-------------------------------------------------------------------------------------------------------
-
+            if (listView != null){
+                listView.setAdapter(arrayAdapter);
             }
-        }
-        //Statement for the second activity
-        else if (resultCode == RESULT_OK && requestCode == REFERENCE_ACTIVITY_NUMBER_2){
 
+            arrayAdapter.notifyDataSetChanged();
         }
+
+
     }
+
+    ArrayList <String> medicinenames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Set up
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.display_all_drug_activity);
+        setContentView(R.layout.display_medication);
 
-        //Getting reference to listview from display_drugs_activity file
-        listView = (ListView) findViewById(R.id.listview);
-
-        //Getting reference to the the button
-        newMedicineButton = (Button) findViewById(R.id.newMedicine);
-
-        //Setting up Alarm Manager
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        //Adding the clicklistener for the button
-        newMedicineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newMedicinePage = new Intent (DisplayMedicineActivity.this, CreateMedicineActivity.class );
-                startActivityForResult(newMedicinePage, REFERENCE_ACTIVITY_NUMBER_1);
-            }
-        });
+        //Linking to the xml files
+        listView = (ListView) findViewById(R.id.listview); //Getting reference to listview from display_drugs_activity file
 
 
+        IOHelper io = new IOHelper();
+        Log.d("result",  "AllMedicine: "+ io.read(this,String.valueOf(R.string.medicineFile)));
 
+        //Medicine List
+        medList = new MedicineList(this);
 
-
-
-
-
-
-
-
-
-        //Code for the listview----------------------------------------------------------------
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
-
-        if (listView != null){
-            listView.setAdapter(arrayAdapter);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
+        //Used for the clicking the item
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Toast.makeText(getApplicationContext(), Integer.toString(i),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), Integer.toString(i),Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(DisplayMedicineActivity.this, MedicineDescriptionActivity.class);
+                //Need to fix this up so that you can sort
                 intent.putExtra("Medicine", medList.getMedicine(i));
-                startActivity(intent);
+                startActivityForResult(intent,ACTIVITY_DELETED);
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         //------------------------------------------------------------------------------------------
@@ -201,29 +99,26 @@ public class DisplayMedicineActivity extends Activity {
             @Override
 
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //medList.remove(i);
-                //arrayAdapter.notifyDataSetChanged();
-
-
-                //Use to reference the pending intent
-                Intent alarmIntent = new Intent(getApplicationContext(), Receiver.class);pIntent = PendingIntent.getBroadcast(getApplicationContext(),counter++,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-                pIntent.cancel(); //Cancel the pending intent here
-
-                Toast.makeText(getApplicationContext(), "Deleted",Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
-
         //--------------------------------------------------------------------------------------------------------------
-
-
     }
 
     //The purpose of this method is to update the list which displays the medicine names
     @Override
     protected void onResume() {
         super.onResume();
-        //Toast.makeText(this, "OnResume", Toast.LENGTH_SHORT).show();
-        arrayAdapter.notifyDataSetChanged();
+        //arrayAdapter.clear();
+        medList.updateList(getApplicationContext());
+
+        //Code for the listview----------------------------------------------------------------
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medList.getMedicineNames());
+
+        if (listView != null){
+            listView.setAdapter(arrayAdapter);
+        }
+
+        //Toast.makeText(getApplicationContext(), "onResume", Toast.LENGTH_SHORT).show();
     }
 }
