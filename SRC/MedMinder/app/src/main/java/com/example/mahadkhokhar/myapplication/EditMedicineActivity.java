@@ -22,6 +22,16 @@ import Structures.Medicine;
  * Created by Mahad Khokhar on 2017-11-29.
  */
 
+
+/**
+ * <h1>The Edit activity class  </h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 29 2017
+ * @version 0
+ *
+ *<p> The activity will allow you to edit the medicine properties. You cannot edit the name of the selected medicine</p>
+ */
 public class EditMedicineActivity extends Activity {
 
     //Items on screen --xml file
@@ -34,6 +44,11 @@ public class EditMedicineActivity extends Activity {
 
     private Medicine medicine;
 
+    /**
+     * This method will be created when the activity is called.
+     * It will link the code to xml components
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

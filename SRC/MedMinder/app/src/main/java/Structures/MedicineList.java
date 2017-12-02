@@ -17,8 +17,20 @@ import static java.util.Arrays.sort;
  * Created by Mahad Khokhar on 2017-11-09.
  */
 
+
+/**
+ * <h1>An arraylist of medicine</h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 09 2017
+ * @version 0
+ *
+ *<p> The class will deal with retrieving and storing the information to the list of medicine. The list will
+ * also handle any manipulation to the list. There can only be one medicine with a unique name in the list   </p>
+ */
 public class MedicineList {
 
+    //Name of the medicine list file
     final String file = String.valueOf(R.string.medicineFile);
 
     /**
@@ -26,6 +38,10 @@ public class MedicineList {
      */
     private static ArrayList<Medicine> medList;
 
+    /**
+     * This is the default constructor for the medicine. When the constructor is going to get all the previous stored medicine from the list
+     * @param context the context is used to get the medicine resources in the file
+     */
     public MedicineList (Context context){
         //Create new arraylist
         medList = new ArrayList <Medicine> ();
@@ -38,7 +54,7 @@ public class MedicineList {
 
     /**
      * @param Name Enter the name of the medication
-     * @return it will return the index of where it exist. If it doesn't exist it will give you an error
+     * @return it will return the index of where it exist. If it doesn't exist it will give you an error (-1)
      */
     public int find (String Name){
         for (int i = 0; i <medList.size(); i ++){
@@ -56,7 +72,12 @@ public class MedicineList {
     public int size (){return medList.size();}
 
 
-
+    /**
+     * The method will add the medicine if the medicine already doesn't exist (check by name)
+     * @param context the context will be used to get the name of
+     * @param medicine the medicine you want added to the list
+     * @return true if the add has been successful and false if the add has been unsuccessful
+     */
     public boolean add (Context context, Medicine medicine){
         //Searches for if name already exists
         if (find (medicine.getName()) == -1) {
@@ -89,12 +110,21 @@ public class MedicineList {
 
     }
 
-
+    /**
+     * The remove will get rid the of the medicine at an index. If the index doesn't exist then it will do nothing
+     * @param context the context will reference the file
+     * @param index the index which you want to be deleted at
+     */
     public void remove (Context context, int index){
         if (index <medList.size() &&index >= 0)
         medList.remove(index);
     }
 
+    /**
+     * The remove will the medicine given a name. The method will do nothing
+     * @param context the context will reference the file
+     * @param name the name of hte medicine you want ot delete
+     */
     public void remove (Context context, String name){
         int index = find(name);
         if (index <medList.size() &&index >= 0) {
@@ -104,6 +134,11 @@ public class MedicineList {
 
     }
 
+    /**
+     * return the medicine at the index
+     * @param i the index
+     * @return the medicine corresponding to the index
+     */
     public Medicine getMedicine (int i){
         //Making sure it is between the range
         if (i >= 0 && i < medList.size())
@@ -112,6 +147,11 @@ public class MedicineList {
             return null;
     }
 
+    /**
+     * return the medicine given the name
+     * @param medName the index
+     * @return the medicine corresponding to the name
+     */
     public Medicine getMedicine (String medName){
         //Find the data structure for the corresponding medicine
         for (int i = 0; i < medList.size(); i ++) {
@@ -123,6 +163,10 @@ public class MedicineList {
         return null;
     }
 
+    /**
+     *
+     * @return The method will return a ArrayList with all the medicine name
+     */
     public ArrayList<String> getMedicineNames (){
         //Making sure there is medicine in the list
         if (medList.size() == 0)
@@ -135,28 +179,14 @@ public class MedicineList {
             for (int i = 0; i < medList.size(); i ++ ){
                 result.add(medList.get(i).getName());
             }
-
-
-/*            String [] result = new String [medList.size()];
-
-            //Get the names
-            for (int i = 0; i < medList.size(); i ++ ){
-                result[i] =(medList.get(i).getName());
-            }
-
-            //Sorting it
-            Insertion.sort(result);
-
-            //Converting into arraylist
-            ArrayList<String> results = new ArrayList<String>(Arrays.asList(result));
-            //Testing
-*//*            for (int i = 0; i < results.size(); i ++ ){
-                Log.d("toto", results.get(i)); //result[i] =(medList.get(i).getName());
-            }*/
             return result;
         }
     }
 
+    /**
+     * This method is used to update the file
+     * @param context used to reference the medicine file
+     */
     public void updateFile(Context context){
 
         IOHelper io = new IOHelper();
@@ -171,7 +201,11 @@ public class MedicineList {
         io.writeToFile(context,file,result);
         //System.out.println(result); //Eclipse 
     }
-    
+
+    /**
+     * The method will update the medicine list
+     * @param context used to reference the medicine file
+     */
     public void updateList(Context context) {
 
         IOHelper io = new IOHelper();
@@ -208,6 +242,9 @@ public class MedicineList {
     	  	
     }
 
+    /**
+     * The method will be used to sort the medicine alphabetically
+     */
     public void sort (){
         Medicine [] result = new Medicine [medList.size()];
 

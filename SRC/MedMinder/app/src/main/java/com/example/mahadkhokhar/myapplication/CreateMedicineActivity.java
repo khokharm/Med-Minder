@@ -26,10 +26,20 @@ import Structures.Medicine;
  * Created by Mahad Khokhar on 2017-11-04.
  */
 
+/**
+ * This is the main activity. This will be used
+ */
+
+/**
+ * <h1>The main activity class  </h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 04 2017
+ * @version 0
+ *
+ *<p> The main screen of my application. This contain the functionality of the button</p>
+ */
 public class CreateMedicineActivity extends Activity {
-
-    final int ACTIVITY_NUMBER = 1002;
-
 
     //Items on screen --xml file
     private Button createButton;
@@ -39,7 +49,10 @@ public class CreateMedicineActivity extends Activity {
     private String medType = "";
     private EditText medDescription;
 
-
+    /**
+     * This function will be called when the activity has to be created. It links the items to the xml file
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,8 +79,6 @@ public class CreateMedicineActivity extends Activity {
 
         //Checking if file exist if not create it with default value
         counterFileExist();
-
-
 
         //Make sure there is a name for the drug name for the application
         medName.addTextChangedListener(new TextWatcher() {
@@ -118,8 +129,7 @@ public class CreateMedicineActivity extends Activity {
         });
 
 
-        //Intent Configurations --------------------------------------------------------
-
+        //Button function for creating a file
         createButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -136,6 +146,10 @@ public class CreateMedicineActivity extends Activity {
 
     }
 
+    /**
+     * This method will return the current counter and increment  it
+     * @return returns the counter
+     */
     public int counterAssignment (){
         String fileName = String.valueOf(R.string.counterFile);
         //Creating File and Getting reference to file
@@ -162,7 +176,9 @@ public class CreateMedicineActivity extends Activity {
         return value;
     }
 
-
+    /**
+     * Checks if a file for storage exists on application
+     */
     public void counterFileExist(){
         String fileName = String.valueOf(R.string.counterFile);
 

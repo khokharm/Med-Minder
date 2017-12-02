@@ -20,11 +20,30 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 
 
+/**
+ * This is the main activity. This will be used
+ */
+
+/**
+ * <h1>The main activity class  </h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 16 2017
+ * @version 0
+ *
+ *<p> </p>
+ */
 public class Receiver extends BroadcastReceiver {
 
+    /**
+     * This method happens when the application recieves the pending intent
+     * @param context get the current context
+     * @param intent getting the intent and the data from the intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        //Getting the data from intent
         Bundle extras = intent.getExtras();
         //Testing ----------------------------------------------------------------------------------------
 /*        if (extras != null) {

@@ -17,6 +17,19 @@ import Structures.Medicine;
 import Structures.MedicineList;
 
 
+/**
+ * This is the main activity. This will be used
+ */
+
+/**
+ * <h1>The main activity class  </h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 04 2017
+ * @version 0
+ *
+ *<p> The main activity has two button used for navigation </p>
+ */
 public class MainActivity extends AppCompatActivity {
 
     //Used to determine which activity it is coming from
@@ -31,7 +44,14 @@ public class MainActivity extends AppCompatActivity {
     //Reference to medList
     MedicineList medList;
 
-    //This methods is used to get Data from the application
+
+
+    /**
+     *  This methods is used handle the requests from other activities
+     * @param requestCode the code which will tell us which has happened
+     * @param resultCode if it was successfull
+     * @param data the intent to get the data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
@@ -83,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method is called to create the activity of the code
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -125,9 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(newMedicinePage, ACTIVITY_NEW_MEDICINE);
             }
         });
-
-
-
 
     }
 }

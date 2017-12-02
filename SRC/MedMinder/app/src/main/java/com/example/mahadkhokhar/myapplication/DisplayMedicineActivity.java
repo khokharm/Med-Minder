@@ -25,6 +25,15 @@ import Structures.MedicineList;
  * Created by Mahad Khokhar on 2017-11-04.
  */
 
+/**
+ * <h1>The display medicine activity class  </h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 04 2017
+ * @version 0
+ *
+ *<p> This page will control the listing of medicine.  </p>
+ */
 public class DisplayMedicineActivity extends Activity {
 
     //Variables
@@ -37,6 +46,12 @@ public class DisplayMedicineActivity extends Activity {
     //Used to track for return from activity
     final int ACTIVITY_DELETED = 8008;
 
+    /**
+     * This method is used for updating the list when the medicine is deleted
+     * @param requestCode
+     * @param resultCode
+     * @param data no data was transfer for this part of application
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ACTIVITY_DELETED) {
@@ -105,7 +120,11 @@ public class DisplayMedicineActivity extends Activity {
         //--------------------------------------------------------------------------------------------------------------
     }
 
-    //The purpose of this method is to update the list which displays the medicine names
+
+
+    /**
+     * The method is used for unpdating the medicine list.
+     */
     @Override
     protected void onResume() {
         super.onResume();

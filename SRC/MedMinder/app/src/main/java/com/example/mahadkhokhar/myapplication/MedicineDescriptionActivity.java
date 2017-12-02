@@ -24,6 +24,20 @@ import Structures.MedicineList;
  * Created by Mahad Khokhar on 2017-11-04.
  */
 
+
+/**
+ * This is the main activity. This will be used
+ */
+
+/**
+ * <h1>The description  activity class  </h1>
+ *
+ * @author Mahad Khokhar
+ * Date: Nov 04 2017
+ * @version 0
+ *
+ *<p> This activity will show the description of the medicine. It allows you to have the selection of editing and modifying </p>
+ */
 public class MedicineDescriptionActivity extends Activity {
 
     ////Variables for items from XML file
@@ -41,6 +55,12 @@ public class MedicineDescriptionActivity extends Activity {
     final int ACTIVITY_DELETE = 8008;
     final int ACTIVITY_EDIT = 3003;
 
+    /**
+     * This will handle updating the edition of the mediction
+     * @param requestCode what was selected from the previous activity
+     * @param resultCode make sure the result code was met
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -189,6 +209,13 @@ public class MedicineDescriptionActivity extends Activity {
         });
     }
 
+    /**
+     * Method used for updating the display view
+     * @param name name of medicine
+     * @param type Type of medicine
+     * @param description description of medicine
+     * @param time the time to be notified.
+     */
     public void update(String name, String type, String description, String time){
 
         medicine_Name.setText("Medicine Name: " + name);
